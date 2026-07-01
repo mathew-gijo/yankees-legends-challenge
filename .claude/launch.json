@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "yankees",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["/Users/gijomathew/Desktop/Yankee Challenge/tools/serve.py", "8124"],
+      "port": 8124
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "_comment": "Game content for the 4 rounds. Round 2 photos load live from Wikipedia (freely-licensed lead images) using the 'wiki' title. Round 3 'audioUrl' is null by default because famous broadcast calls are copyrighted — plug in your own licensed clips, or leave null to play from the transcript. Regenerate/extend with tools/fetch_content.py.",
+  "updated": "2026-06-30",
+  "rounds": [
+    {
+      "id": 1,
+      "title": "Pinstripe Warmup",
+      "subtitle": "Round 1 · Easy",
+      "type": "trivia",
+      "secondsPerQ": 20,
+      "questions": [
+        { "q": "How many World Series championships have the Yankees won?", "choices": ["19", "23", "27", "31"], "answer": 2, "fact": "27 titles — the most of any North American pro sports franchise." },
+        { "q": "What number did Derek Jeter wear?", "choices": ["2", "42", "51", "6"], "answer": 0, "fact": "No. 2 — the last of the Yankees' single-digit numbers to be retired." },
+        { "q": "Which Yankee is nicknamed 'The Sultan of Swat'?", "choices": ["Lou Gehrig", "Babe Ruth", "Joe DiMaggio", "Mickey Mantle"], "answer": 1, "fact": "Babe Ruth also went by the Bambino and the Great Bambino." },
+        { "q": "What is the Yankees' home ballpark called?", "choices": ["Fenway Park", "Yankee Stadium", "Ebbets Field", "Shea Stadium"], "answer": 1, "fact": "The current Yankee Stadium opened in 2009, across the street from the original 'House That Ruth Built.'" },
+        { "q": "Mariano Rivera is famous for playing which position?", "choices": ["Starting pitcher", "Closer", "Shortstop", "Catcher"], "answer": 1, "fact": "Rivera's 652 saves are the most in MLB history — all with one pitch, the cutter." },
+        { "q": "How long was Joe DiMaggio's record hitting streak?", "choices": ["44 games", "50 games", "56 games", "61 games"], "answer": 2, "fact": "56 straight games in 1941 — a record many consider unbreakable." }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Faces of the Franchise",
+      "subtitle": "Round 2 · Medium",
+      "type": "photo",
+      "secondsPerQ": 25,
+      "questions": [
+        { "wiki": "Lou Gehrig",     "prompt": "Name this Yankee", "choices": ["Lou Gehrig", "Bill Dickey", "Tony Lazzeri", "Red Ruffing"], "answer": 0, "fact": "Gehrig's 'luckiest man' speech in 1939 is one of sport's most famous moments." },
+        { "wiki": "Yogi Berra",     "prompt": "Name this Yankee", "choices": ["Elston Howard", "Yogi Berra", "Thurman Munson", "Jorge Posada"], "answer": 1, "fact": "Berra won 10 World Series rings as a player — an MLB record." },
+        { "wiki": "Roger Maris",    "prompt": "Name this Yankee", "choices": ["Mickey Mantle", "Hank Bauer", "Roger Maris", "Bobby Richardson"], "answer": 2, "fact": "Maris hit 61 homers in 1961 to break Babe Ruth's single-season record." },
+        { "wiki": "Bernie Williams","prompt": "Name this Yankee", "choices": ["Bernie Williams", "Dave Winfield", "Rickey Henderson", "Paul O'Neill"], "answer": 0, "fact": "Bernie is also an accomplished jazz guitarist with a Latin Grammy nomination." },
+        { "wiki": "Ron Guidry",     "prompt": "Name this Yankee", "choices": ["Whitey Ford", "Ron Guidry", "Andy Pettitte", "Lefty Gomez"], "answer": 1, "fact": "'Louisiana Lightning' went 25-3 with a 1.74 ERA in his 1978 Cy Young season." },
+        { "wiki": "Thurman Munson", "prompt": "Name this Yankee", "choices": ["Elston Howard", "Bill Dickey", "Thurman Munson", "Rick Cerone"], "answer": 2, "fact": "Munson was the first Yankees captain since Lou Gehrig." }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "The Call",
+      "subtitle": "Round 3 · Hard",
+      "type": "audio",
+      "secondsPerQ": 30,
+      "questions": [
+        {
+          "prompt": "Identify the moment from this famous call",
+          "transcript": "\"There it goes... and it is... HIGH! It is FAR! It is... GONE! Number 61!\"",
+          "audioUrl": null,
+          "link": "https://en.wikipedia.org/wiki/Roger_Maris",
+          "choices": ["DiMaggio's 56th straight game", "Maris's 61st homer, 1961", "Judge's 62nd homer, 2022", "Mantle's tape-measure shot"],
+          "answer": 1,
+          "fact": "Maris broke a 34-year-old record held by his own teammate's predecessor, Babe Ruth."
+        },
+        {
+          "prompt": "Which Yankees moment is this?",
+          "transcript": "\"An out away... Rivera coming set... and the Yankees are World Champions again!\"",
+          "audioUrl": null,
+          "link": "https://en.wikipedia.org/wiki/Mariano_Rivera",
+          "choices": ["1996 World Series", "2000 Subway Series", "2009 World Series", "Any of the above — Rivera closed them all"],
+          "answer": 3,
+          "fact": "Rivera was on the mound for the final out of the 1998, 1999, 2000 and 2009 clinchers."
+        },
+        {
+          "prompt": "Name the walk-off legend",
+          "transcript": "\"He hits it deep to left... it is high enough... GONE! The Yankees win it in extra innings — Mr. November!\"",
+          "audioUrl": null,
+          "link": "https://en.wikipedia.org/wiki/Derek_Jeter",
+          "choices": ["Aaron Boone, 2003 ALCS", "Derek Jeter, 2001 World Series", "Bucky Dent, 1978", "Chris Chambliss, 1976"],
+          "answer": 1,
+          "fact": "Jeter's walk-off in Game 4 came just after midnight on Nov 1, 2001 — earning the 'Mr. November' nickname."
+        },
+        {
+          "prompt": "Which pennant-winner is this?",
+          "transcript": "\"Chambliss swings... deep to right-center... it's GONE! The Yankees are going to the World Series!\"",
+          "audioUrl": null,
+          "link": "https://en.wikipedia.org/wiki/Chris_Chambliss",
+          "choices": ["Aaron Boone, 2003", "Chris Chambliss, 1976 ALCS", "Bucky Dent, 1978", "Bernie Williams, 1996"],
+          "answer": 1,
+          "fact": "Chambliss's walk-off homer sent the Yankees to their first World Series in 12 years."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "What-If & Dream Team",
+      "subtitle": "Round 4 · Expert",
+      "type": "special",
+      "positions": ["C", "1B", "2B", "3B", "SS", "LF", "CF", "RF", "DH", "SP", "RP"],
+      "whatIfs": [
+        {
+          "scenario": "What if the Red Sox never sold Babe Ruth to the Yankees in 1919?",
+          "prompt": "Vote: how many of the Yankees' 27 titles still happen?",
+          "options": ["About the same — the dynasty finds another way", "Maybe half", "Very few — Ruth was the spark", "Zero — no Curse of the Bambino, no dynasty"]
+        },
+        {
+          "scenario": "What if the Yankees had NOT signed CC Sabathia and Mark Teixeira before 2009?",
+          "prompt": "Vote: do they still win the 2009 World Series?",
+          "options": ["Yes, the core carries them", "Coin flip", "No, those signings were the difference"]
+        },
+        {
+          "scenario": "What if Mickey Mantle had stayed fully healthy his whole career?",
+          "prompt": "Vote: where does he rank all-time?",
+          "options": ["Greatest hitter ever, period", "Top 3 with Ruth and Williams", "Elite but roughly the same legacy"]
+        },
+        {
+          "scenario": "What if the Yankees traded for a young Shohei Ohtani in his prime?",
+          "prompt": "Vote: how many titles in the next 5 years?",
+          "options": ["0", "1", "2", "3 or more"]
+        }
+      ]
+    }
+  ]
+}
