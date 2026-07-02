@@ -12,12 +12,13 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const firebaseConfig = {
-  // apiKey: "…",
-  // authDomain: "yankees-legends.firebaseapp.com",
-  // projectId: "yankees-legends",
-  // storageBucket: "yankees-legends.appspot.com",
-  // messagingSenderId: "…",
-  // appId: "…",
+  apiKey: "AIzaSyB-EYpR5ZOE541JtsiRMVNyn_yWdA42U-o",
+  authDomain: "yankeechallenge.firebaseapp.com",
+  projectId: "yankeechallenge",
+  storageBucket: "yankeechallenge.firebasestorage.app",
+  messagingSenderId: "633191965321",
+  appId: "1:633191965321:web:95a27acfc8dec6fdd1dc58",
+  measurementId: "G-FES62JD1RH",
 };
 
 export const hasFirebase = Boolean(firebaseConfig.projectId && firebaseConfig.apiKey);
