@@ -49,8 +49,19 @@ For guests to join across different phones, add a free **Firebase** backend:
 That's it — the app auto-detects the config and switches from local mode to live
 Firestore rooms. Players join with a 4-letter room code.
 
-> Firestore free tier is far more than a dinner game needs. For a locked-down
-> setup, restrict security rules to the `games/{code}` collection.
+4. **Authorize your domains** — in Authentication → Settings → Authorized
+   domains, add wherever the app is hosted (e.g. `localhost` and your Pages
+   domain). Anonymous sign-in fails on unlisted domains, and the app then
+   silently falls back to local mode.
+
+### Lock down the database (do this before you rely on it)
+
+Firestore's default **test mode** lets anyone on the internet read and write your
+whole database until it expires — not something to leave on a public project.
+This repo ships [`firestore.rules`](firestore.rules), which restricts access to
+the `games` collection and to signed-in clients (the app signs everyone in with
+anonymous auth). Apply it in the console → **Firestore Database → Rules → Publish**,
+or via the CLI: `firebase deploy --only firestore:rules`.
 
 ## Deploy (free static hosting)
 
