@@ -40,10 +40,30 @@ export function renderHome({ onCreate, onJoin, mode }) {
         save(); onJoin(code, name.trim());
       } }),
     ]),
+    rulesCard(),
     el('p.footer', { html: mode === 'local'
       ? 'Running in <b>local test mode</b> — open a second browser tab to add a player. Add Firebase config for real cross-phone play.'
       : 'Connected · everyone can join from their own phone.' }),
   );
+}
+
+// Shared "how to play" card, shown up front on Home and again in the Lobby.
+function rulesCard() {
+  const steps = [
+    'One person hosts — tap <b>Create game</b> and share the 4-letter code.',
+    'Everyone else joins on their own phone with that code.',
+    'Four rounds, each harder than the last: <b>trivia → mystery photos → famous radio calls → build your all-time team</b>.',
+    'Answer fast: <b>100 points</b> for a correct answer, plus up to <b>100 more</b> for speed.',
+    'The host reads each prompt aloud, then taps to reveal the answer and move on.',
+  ];
+  return el('div.card.stack', {}, [
+    el('div.pin', { text: 'How to play' }),
+    ...steps.map((s, i) => el('div.rule', {}, [
+      el('span.rule-n', { text: String(i + 1) }),
+      el('span.rule-t', { html: s }),
+    ])),
+    el('div.fact', { text: 'No trivia here is easy — these are deep cuts. Guess boldly; the bold score.' }),
+  ]);
 }
 
 // ── Lobby ─────────────────────────────────────────────────────────────────
@@ -63,6 +83,7 @@ export function renderLobby(ctx) {
       el('div.row.between', {}, [ el('div.pin', { text: `Players (${players.length})` }), el('span.badge', { text: ctx.mode === 'local' ? 'LOCAL' : 'LIVE' }) ]),
       el('div.chips', {}, players.map((p) => el('span.chip', { text: p.name + (p.uid === state.hostId ? ' 👑' : '') }))),
     ]),
+    rulesCard(),
     isHost
       ? el('button.btn', { text: 'Start the challenge', onclick: act.start })
       : el('p.center.muted', { text: 'Waiting for the host to start…' }),
