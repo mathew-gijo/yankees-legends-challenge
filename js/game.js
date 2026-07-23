@@ -24,6 +24,7 @@ export function initialState(hostId, hostName) {
     roundIndex: 0,
     qIndex: 0,
     qStartedAt: 0,
+    plan: null,       // { ri: [bankIndex, …] } — per-game shuffled question selection
     players: { [hostId]: player(hostName) },
     answers: {},      // 'r{ri}q{qi}': { uid: { choice, ms } }
     scored: {},       // 'r{ri}q{qi}': true
@@ -38,7 +39,58 @@ export const player = (name) => ({ name: name.slice(0, 16), score: 0, joined: Da
 
 export const qKey = (s) => `r${s.roundIndex}q${s.qIndex}`;
 export const currentRound = (s) => rounds()[s.roundIndex];
-export const currentQuestion = (s) => currentRound(s)?.questions?.[s.qIndex];
+
+// The per-game "plan" maps each round to a shuffled subset of its question bank,
+// so every player sees the same fresh selection but a different game plays a
+// different set. currentQuestion/currentWhatIf resolve the visible index → bank
+// index through the plan (falling back to the raw index for older/planless state).
+export function currentQuestion(s) {
+  const round = currentRound(s);
+  if (!round?.questions) return undefined;
+  const plan = s.plan?.[s.roundIndex];
+  const idx = plan ? plan[s.qIndex] : s.qIndex;
+  return round.questions[idx];
+}
+export function currentWhatIf(s) {
+  const round = currentRound(s);
+  if (!round?.whatIfs) return undefined;
+  const plan = s.plan?.[s.roundIndex];
+  const idx = plan ? plan[s.whatIfIndex] : s.whatIfIndex;
+  return round.whatIfs[idx];
+}
+// How many items this round actually plays (planned subset, or the full bank).
+export function itemCount(s, ri = s.roundIndex) {
+  const round = rounds()[ri];
+  const plan = s.plan?.[ri];
+  if (plan) return plan.length;
+  return round?.questions?.length ?? round?.whatIfs?.length ?? 0;
+}
+
+// Have all current players locked in an answer for the live question?
+export function allAnswered(s) {
+  if (s.phase !== PHASE.QUESTION) return false;
+  const players = Object.keys(s.players || {});
+  if (!players.length) return false;
+  const ans = s.answers?.[qKey(s)] || {};
+  return players.every((uid) => ans[uid]);
+}
+
+function pickShuffled(total, n) {
+  const idx = Array.from({ length: total }, (_, i) => i);
+  for (let i = idx.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [idx[i], idx[j]] = [idx[j], idx[i]];
+  }
+  return idx.slice(0, Math.min(n ?? total, total));
+}
+function buildPlan() {
+  const plan = {};
+  rounds().forEach((round, ri) => {
+    const bank = round.questions || round.whatIfs;
+    if (bank) plan[ri] = pickShuffled(bank.length, round.pick);
+  });
+  return plan;
+}
 
 export function leaderboard(s) {
   return Object.entries(s.players || {})
@@ -84,6 +136,7 @@ export function startGame(s) {
   s.phase = PHASE.QUESTION;
   s.roundIndex = 0;
   s.qIndex = 0;
+  s.plan = buildPlan();
   s.qStartedAt = Date.now();
 }
 
@@ -115,7 +168,7 @@ export function advance(s) {
   // Within a trivia/photo/audio round
   if ([PHASE.QUESTION, PHASE.REVEAL].includes(s.phase)) {
     if (s.phase === PHASE.QUESTION) scoreCurrentQuestion(s); // safety
-    const last = s.qIndex >= (round.questions?.length || 0) - 1;
+    const last = s.qIndex >= itemCount(s) - 1;
     if (!last) { s.qIndex += 1; s.phase = PHASE.QUESTION; s.qStartedAt = Date.now(); }
     else { s.phase = PHASE.ROUND_END; }
     return;
@@ -132,8 +185,7 @@ export function advance(s) {
   }
   // Round 4 — what-if scenarios
   if (s.phase === PHASE.WHATIF) {
-    const list = round.whatIfs || [];
-    if (s.whatIfIndex < list.length - 1) s.whatIfIndex += 1;
+    if (s.whatIfIndex < itemCount(s) - 1) s.whatIfIndex += 1;
     else s.phase = PHASE.DRAFT;
     return;
   }

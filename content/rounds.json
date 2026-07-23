@@ -1,5 +1,5 @@
 {
-  "_comment": "Game content for the 4 rounds. Hard/obscure by design; question text never names its own answer. Round 2 photos load live from Wikipedia via 'wiki'. Round 3 'audioUrl' is null because famous broadcast calls are copyrighted — plug in licensed clips or read the transcript aloud. Round 4 draws its draft pool from legends.json. Extend with tools/fetch_content.py.",
+  "_comment": "Question BANKS for the 4 rounds. Each round has a 'pick' count — at game start the host randomly selects and shuffles that many from the bank, so every dinner plays a different, fresh set (shared to all phones via game state). Hard/obscure by design; question text never names its own answer. Round 2 photos load live from Wikipedia via 'wiki'. Round 3 'audioUrl' is null (famous calls are copyrighted) — read the transcript aloud or plug in licensed clips. Round 4 draws its draft pool from legends.json.",
   "updated": "2026-07-02",
   "rounds": [
     {
@@ -8,6 +8,7 @@
       "subtitle": "Round 1 · Hard",
       "type": "trivia",
       "secondsPerQ": 25,
+      "pick": 6,
       "questions": [
         { "q": "On April 6, 1973, who took the first plate appearance as a designated hitter in Major League history?", "choices": ["Orlando Cepeda", "Tony Oliva", "Ron Blomberg", "Hal McRae"], "answer": 2, "fact": "Ron Blomberg walked with the bases loaded off Luis Tiant in Boston." },
         { "q": "Which of these pitchers did NOT throw a perfect game in pinstripes?", "choices": ["Don Larsen", "David Wells", "Ron Guidry", "David Cone"], "answer": 2, "fact": "Larsen (1956), Wells (1998) and Cone (1999) were perfect; Guidry never was." },
@@ -16,7 +17,15 @@
         { "q": "Who managed the Yankees to their first World Series championship, in 1923?", "choices": ["Miller Huggins", "Joe McCarthy", "Casey Stengel", "Bucky Harris"], "answer": 0, "fact": "Huggins led the franchise to its first title over the crosstown Giants." },
         { "q": "When Lou Gehrig pulled himself from the lineup in 1939, which first baseman replaced him?", "choices": ["Buddy Hassett", "Babe Dahlgren", "Johnny Sturm", "Nick Etten"], "answer": 1, "fact": "Babe Dahlgren ended the 2,130-game streak by starting at first base." },
         { "q": "The Yankees retired uniform number 8 for which pair of players?", "choices": ["Mantle & Maris", "Bill Dickey & Yogi Berra", "Gehrig & Combs", "Ford & Gomez"], "answer": 1, "fact": "Both were catchers — Dickey mentored Berra, who inherited both the position and the number." },
-        { "q": "Who holds the Yankees' single-season record for runs batted in?", "choices": ["Babe Ruth", "Joe DiMaggio", "Lou Gehrig", "Alex Rodriguez"], "answer": 2, "fact": "Gehrig drove in 185 in 1931 — still the American League record." }
+        { "q": "Who holds the Yankees' single-season record for runs batted in?", "choices": ["Babe Ruth", "Joe DiMaggio", "Lou Gehrig", "Alex Rodriguez"], "answer": 2, "fact": "Gehrig drove in 185 in 1931 — still the American League record." },
+        { "q": "Who holds the Yankees' single-season record for stolen bases?", "choices": ["Rickey Henderson", "Fritz Maisel", "Ben Chapman", "Willie Randolph"], "answer": 0, "fact": "Henderson swiped 93 in 1988 — the franchise mark." },
+        { "q": "Whose was the first uniform number ever retired in Major League Baseball?", "choices": ["Babe Ruth", "Lou Gehrig", "Joe DiMaggio", "Christy Mathewson"], "answer": 1, "fact": "The Yankees retired Gehrig's No. 4 on July 4, 1939." },
+        { "q": "Which manager guided the Yankees to five straight championships from 1949 to 1953?", "choices": ["Casey Stengel", "Joe McCarthy", "Ralph Houk", "Miller Huggins"], "answer": 0, "fact": "Stengel's run of five in a row has never been matched." },
+        { "q": "Which Yankee was named American League Rookie of the Year in 1996?", "choices": ["Andy Pettitte", "Mariano Rivera", "Derek Jeter", "Bernie Williams"], "answer": 2, "fact": "Jeter hit .314 as a 22-year-old on a championship club." },
+        { "q": "Who was the catcher for Don Larsen's perfect game in the 1956 World Series?", "choices": ["Yogi Berra", "Elston Howard", "Bill Dickey", "Charlie Silvera"], "answer": 0, "fact": "Berra famously leapt into Larsen's arms at the final out." },
+        { "q": "The Yankees retired which single-digit number for manager Billy Martin?", "choices": ["1", "4", "6", "10"], "answer": 0, "fact": "The fiery skipper's No. 1 hangs in Monument Park." },
+        { "q": "Whose walk-off home run in Game 7 beat the Yankees in the 1960 World Series?", "choices": ["Bill Mazeroski", "Roberto Clemente", "Dick Groat", "Bill Virdon"], "answer": 0, "fact": "It remains the only Game 7 walk-off homer in World Series history." },
+        { "q": "In what year did Elston Howard break the Yankees' color barrier?", "choices": ["1947", "1951", "1955", "1959"], "answer": 2, "fact": "Howard debuted in 1955, eight years after Jackie Robinson." }
       ]
     },
     {
@@ -25,13 +34,20 @@
       "subtitle": "Round 2 · Harder",
       "type": "photo",
       "secondsPerQ": 25,
+      "pick": 5,
       "questions": [
         { "wiki": "Bobby Murcer",     "prompt": "Name this Yankee", "choices": ["Bobby Murcer", "Roy White", "Bobby Richardson", "Mickey Rivers"], "answer": 0, "fact": "The homegrown Oklahoman was billed as the heir to Mickey Mantle." },
         { "wiki": "Roy White",        "prompt": "Name this Yankee", "choices": ["Hank Bauer", "Roy White", "Gene Woodling", "Tommy Henrich"], "answer": 1, "fact": "A switch-hitting left fielder who played his entire career (1965–79) in the Bronx." },
         { "wiki": "Mel Stottlemyre",  "prompt": "Name this Yankee", "choices": ["Mel Stottlemyre", "Allie Reynolds", "Fritz Peterson", "Vic Raschi"], "answer": 0, "fact": "The ace of the lean 1960s later became a celebrated pitching coach." },
         { "wiki": "Tommy Henrich",    "prompt": "Name this Yankee", "choices": ["Charlie Keller", "Gene Woodling", "Tommy Henrich", "Hank Bauer"], "answer": 2, "fact": "“Old Reliable” was known for coming through in the clutch beside DiMaggio." },
         { "wiki": "Sparky Lyle",      "prompt": "Name this Yankee", "choices": ["Sparky Lyle", "Ryne Duren", "Rich Gossage", "Dave Righetti"], "answer": 0, "fact": "The mustachioed lefty later wrote the tell-all diary ‘The Bronx Zoo.’" },
-        { "wiki": "Bobby Richardson", "prompt": "Name this Yankee", "choices": ["Gil McDougald", "Jerry Coleman", "Bobby Richardson", "Horace Clarke"], "answer": 2, "fact": "The second baseman is the only World Series MVP ever chosen from the losing team (1960)." }
+        { "wiki": "Bobby Richardson", "prompt": "Name this Yankee", "choices": ["Gil McDougald", "Jerry Coleman", "Bobby Richardson", "Horace Clarke"], "answer": 2, "fact": "The second baseman is the only World Series MVP ever chosen from the losing team (1960)." },
+        { "wiki": "Graig Nettles",    "prompt": "Name this Yankee", "choices": ["Graig Nettles", "Clete Boyer", "Scott Brosius", "Red Rolfe"], "answer": 0, "fact": "His diving stops at third base robbed the Dodgers all over the 1978 Series." },
+        { "wiki": "Chris Chambliss",  "prompt": "Name this Yankee", "choices": ["Bill Skowron", "Chris Chambliss", "Joe Pepitone", "Tino Martinez"], "answer": 1, "fact": "His 1976 walk-off homer ended a 12-year pennant drought." },
+        { "wiki": "Bucky Dent",       "prompt": "Name this Yankee", "choices": ["Bucky Dent", "Tony Kubek", "Gene Michael", "Fred Stanley"], "answer": 0, "fact": "A light-hitting shortstop whose 1978 pop fly cleared the Green Monster." },
+        { "wiki": "Willie Randolph",  "prompt": "Name this Yankee", "choices": ["Horace Clarke", "Willie Randolph", "Alfonso Soriano", "Bobby Richardson"], "answer": 1, "fact": "Brooklyn-born second baseman who later co-captained and managed in New York." },
+        { "wiki": "Hank Bauer",       "prompt": "Name this Yankee", "choices": ["Hank Bauer", "Gene Woodling", "Charlie Keller", "Irv Noren"], "answer": 0, "fact": "The ex-Marine right fielder hit safely in 17 straight World Series games." },
+        { "wiki": "Reggie Jackson",   "prompt": "Name this Yankee", "choices": ["Reggie Jackson", "Dave Winfield", "Bobby Bonds", "Oscar Gamble"], "answer": 0, "fact": "Mr. October — three home runs on three swings in the 1977 clincher." }
       ]
     },
     {
@@ -40,47 +56,56 @@
       "subtitle": "Round 3 · Expert",
       "type": "audio",
       "secondsPerQ": 30,
+      "pick": 4,
       "questions": [
         {
           "prompt": "Identify the player and the moment",
           "transcript": "\"Deep to left... Yastrzemski will not get it... it's a three-run homer, and the Yankees have taken the lead at Fenway!\"",
-          "audioUrl": null,
-          "link": "https://en.wikipedia.org/wiki/Bucky_Dent",
+          "audioUrl": null, "link": "https://en.wikipedia.org/wiki/Bucky_Dent",
           "choices": ["Aaron Boone, 2003 ALCS", "Bucky Dent, 1978 AL East playoff", "Chris Chambliss, 1976 ALCS", "Graig Nettles, 1978 World Series"],
-          "answer": 1,
-          "fact": "A light-hitting shortstop's three-run shot over the Green Monster decided the one-game playoff." },
+          "answer": 1, "fact": "A light-hitting shortstop's three-run shot over the Green Monster decided the one-game playoff." },
         {
           "prompt": "Which pennant-clinching moment is this?",
           "transcript": "\"Leading off the eleventh... he swings at the very first pitch... deep to left field, and it is GONE — the Yankees win the pennant!\"",
-          "audioUrl": null,
-          "link": "https://en.wikipedia.org/wiki/Aaron_Boone",
+          "audioUrl": null, "link": "https://en.wikipedia.org/wiki/Aaron_Boone",
           "choices": ["Chris Chambliss, 1976 ALCS", "Aaron Boone, 2003 ALCS Game 7", "Jim Leyritz, 1995 ALDS", "Bernie Williams, 1999 ALCS"],
-          "answer": 1,
-          "fact": "He turned on Tim Wakefield's first knuckleball of the inning to sink the rival Red Sox." },
+          "answer": 1, "fact": "He turned on Tim Wakefield's first knuckleball of the inning to sink the rival Red Sox." },
         {
           "prompt": "Name the pitcher and the game",
           "transcript": "\"Strike three called! It's a perfect game — and the catcher runs out and leaps into his arms!\"",
-          "audioUrl": null,
-          "link": "https://en.wikipedia.org/wiki/Don_Larsen",
+          "audioUrl": null, "link": "https://en.wikipedia.org/wiki/Don_Larsen",
           "choices": ["David Wells, 1998", "David Cone, 1999", "Don Larsen, 1956 World Series", "Whitey Ford, 1961 World Series"],
-          "answer": 2,
-          "fact": "The only perfect game in World Series history — Yogi Berra jumped into his arms." },
+          "answer": 2, "fact": "The only perfect game in World Series history — Yogi Berra jumped into his arms." },
         {
           "prompt": "Whose performance is being called?",
           "transcript": "\"On the very first pitch... driven deep to center field... that is three home runs, on three swings, tonight!\"",
-          "audioUrl": null,
-          "link": "https://en.wikipedia.org/wiki/Reggie_Jackson",
+          "audioUrl": null, "link": "https://en.wikipedia.org/wiki/Reggie_Jackson",
           "choices": ["Mickey Mantle, 1960 World Series", "Reggie Jackson, 1977 World Series", "Babe Ruth, 1928 World Series", "Aaron Judge, 2017 ALCS"],
-          "answer": 1,
-          "fact": "Three swings, three homers off three different pitchers in the Game 6 clincher — Mr. October." },
+          "answer": 1, "fact": "Three swings, three homers off three different pitchers in the Game 6 clincher — Mr. October." },
         {
           "prompt": "Which Series-turning home run is this?",
           "transcript": "\"Three-and-two... swung on and drilled to left... it is GONE! A game-tying three-run homer in the eighth!\"",
-          "audioUrl": null,
-          "link": "https://en.wikipedia.org/wiki/Jim_Leyritz",
+          "audioUrl": null, "link": "https://en.wikipedia.org/wiki/Jim_Leyritz",
           "choices": ["Tino Martinez, 1998 World Series", "Scott Brosius, 2001 World Series", "Jim Leyritz, 1996 World Series", "Bernie Williams, 1996 ALCS"],
-          "answer": 2,
-          "fact": "His homer off Mark Wohlers tied Game 4 in Atlanta and swung the whole 1996 Series." }
+          "answer": 2, "fact": "His homer off Mark Wohlers tied Game 4 in Atlanta and swung the whole 1996 Series." },
+        {
+          "prompt": "Identify the walk-off and the year",
+          "transcript": "\"It's hit deep to right-center... it is... GONE! The fans are pouring onto the field — the Yankees have won the pennant!\"",
+          "audioUrl": null, "link": "https://en.wikipedia.org/wiki/Chris_Chambliss",
+          "choices": ["Chris Chambliss, 1976 ALCS", "Aaron Boone, 2003 ALCS", "Bucky Dent, 1978 playoff", "Bernie Williams, 1996 ALCS"],
+          "answer": 0, "fact": "Chambliss barely made it around the bases as fans stormed the field." },
+        {
+          "prompt": "Which record-setting swing is this?",
+          "transcript": "\"Here's the pitch... he crushes it to left... and there it is — number 62! A new American League record!\"",
+          "audioUrl": null, "link": "https://en.wikipedia.org/wiki/Aaron_Judge",
+          "choices": ["Aaron Judge, 2022", "Roger Maris, 1961", "Babe Ruth, 1927", "Alex Rodriguez, 2007"],
+          "answer": 0, "fact": "Judge's 62nd broke Maris's 61-year-old AL single-season record." },
+        {
+          "prompt": "Which title clincher is this?",
+          "transcript": "\"The three-two pitch... swing and a miss! The Yankees are champions once more — the 27th in franchise history!\"",
+          "audioUrl": null, "link": "https://en.wikipedia.org/wiki/2009_World_Series",
+          "choices": ["2009 World Series", "2000 World Series", "1999 World Series", "1996 World Series"],
+          "answer": 0, "fact": "The 27th title, and the first in the new Yankee Stadium." }
       ]
     },
     {
@@ -88,28 +113,16 @@
       "title": "What-If & Dream Team",
       "subtitle": "Round 4 · Legendary",
       "type": "special",
+      "pick": 3,
       "positions": ["C", "1B", "2B", "3B", "SS", "LF", "CF", "RF", "DH", "SP", "RP"],
       "whatIfs": [
-        {
-          "scenario": "What if the Red Sox never sold Babe Ruth to the Yankees in 1919?",
-          "prompt": "Vote: how many of the Yankees' 27 titles still happen?",
-          "options": ["About the same — the dynasty finds another way", "Maybe half", "Very few — Ruth was the spark", "Zero — no Curse of the Bambino, no dynasty"]
-        },
-        {
-          "scenario": "What if the Yankees had kept a young Jay Buhner instead of trading him for Ken Phelps in 1988?",
-          "prompt": "Vote: how much does that change the early-'90s rebuild?",
-          "options": ["Not much — the Core Four still carries it", "A little — a better bridge to 1996", "A lot — a franchise cornerstone lost"]
-        },
-        {
-          "scenario": "What if Mickey Mantle had stayed fully healthy his entire career?",
-          "prompt": "Vote: where does he rank all-time?",
-          "options": ["Greatest hitter ever, period", "Top 3 with Ruth and Williams", "Elite, but roughly the same legacy"]
-        },
-        {
-          "scenario": "What if the Yankees had drafted and kept a prime two-way Shohei Ohtani?",
-          "prompt": "Vote: how many titles in the next five years?",
-          "options": ["0", "1", "2", "3 or more"]
-        }
+        { "scenario": "What if the Red Sox never sold Babe Ruth to the Yankees in 1919?", "prompt": "Vote: how many of the Yankees' 27 titles still happen?", "options": ["About the same — the dynasty finds another way", "Maybe half", "Very few — Ruth was the spark", "Zero — no Curse of the Bambino, no dynasty"] },
+        { "scenario": "What if the Yankees had kept a young Jay Buhner instead of trading him for Ken Phelps in 1988?", "prompt": "Vote: how much does that change the early-'90s rebuild?", "options": ["Not much — the Core Four still carries it", "A little — a better bridge to 1996", "A lot — a franchise cornerstone lost"] },
+        { "scenario": "What if Mickey Mantle had stayed fully healthy his entire career?", "prompt": "Vote: where does he rank all-time?", "options": ["Greatest hitter ever, period", "Top 3 with Ruth and Williams", "Elite, but roughly the same legacy"] },
+        { "scenario": "What if the Yankees had drafted and kept a prime two-way Shohei Ohtani?", "prompt": "Vote: how many titles in the next five years?", "options": ["0", "1", "2", "3 or more"] },
+        { "scenario": "What if George Steinbrenner had never bought the Yankees in 1973?", "prompt": "Vote: how different is the modern dynasty?", "options": ["Roughly the same — talent wins out", "Fewer titles, far less drama", "No late-'90s dynasty at all"] },
+        { "scenario": "What if the Yankees had never traded for Paul O'Neill before the 1993 season?", "prompt": "Vote: do the late-'90s Yankees still win four titles?", "options": ["Yes — the core is deep enough", "Maybe three of four", "No — he was the heartbeat"] },
+        { "scenario": "What if Robinson Canó had re-signed instead of leaving for Seattle after 2013?", "prompt": "Vote: how much does the 2010s change?", "options": ["A lot — a perennial MVP-caliber bat", "A little", "Not much in the end"] }
       ]
     }
   ]

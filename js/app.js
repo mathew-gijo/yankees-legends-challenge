@@ -105,7 +105,7 @@ function render() {
 
   switch (s.phase) {
     case G.PHASE.LOBBY: S.renderLobby(ctx); break;
-    case G.PHASE.QUESTION: S.renderQuestion(ctx); startTick(ctx); prefetchNext(s); break;
+    case G.PHASE.QUESTION: S.renderQuestion(ctx); startTick(ctx); maybeAutoReveal(ctx); prefetchNext(s); break;
     case G.PHASE.REVEAL: S.renderQuestion(ctx); break;
     case G.PHASE.ROUND_END: S.renderRoundEnd(ctx); break;
     case G.PHASE.WHATIF: S.renderWhatIf(ctx); break;
@@ -137,13 +137,28 @@ function startTick(ctx) {
   update();
   app.tick = setInterval(update, 250);
 }
-function stopTick() { if (app.tick) { clearInterval(app.tick); app.tick = null; } }
+function stopTick() {
+  if (app.tick) { clearInterval(app.tick); app.tick = null; }
+  if (app.autoRevealT) { clearTimeout(app.autoRevealT); app.autoRevealT = null; }
+}
+
+// Host-only: as soon as every player has locked in an answer, reveal — no need
+// to wait out the timer. A short beat lets the last answer register visually.
+function maybeAutoReveal(ctx) {
+  if (!ctx.isHost || !G.allAnswered(app.state)) return;
+  clearTimeout(app.autoRevealT);
+  app.autoRevealT = setTimeout(() => {
+    if (app.state?.phase === G.PHASE.QUESTION && G.allAnswered(app.state)) act.reveal();
+  }, 700);
+}
 
 // Warm the next photo so it appears instantly.
 function prefetchNext(s) {
   const round = G.currentRound(s);
   if (round?.type === 'photo') {
-    const next = round.questions[s.qIndex + 1];
+    const plan = s.plan?.[s.roundIndex];
+    const nextIdx = plan ? plan[s.qIndex + 1] : s.qIndex + 1;
+    const next = round.questions[nextIdx];
     if (next?.wiki) prefetchPhotos([next.wiki]);
   }
 }

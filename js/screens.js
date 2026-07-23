@@ -3,7 +3,7 @@
 
 import { el, crest, mount, toast, LETTERS } from './ui.js';
 import { fetchPhoto, legends } from './content.js';
-import { PHASE, qKey, leaderboard, currentRound, currentQuestion } from './game.js';
+import { PHASE, qKey, leaderboard, currentRound, currentQuestion, currentWhatIf, itemCount } from './game.js';
 
 // ── Home / create / join ─────────────────────────────────────────────────
 export function renderHome({ onCreate, onJoin, mode }) {
@@ -121,7 +121,7 @@ export function renderQuestion(ctx) {
     roundHeader(state, round),
     el('div.progress', {}, [ el('span', { id: 'timerbar', style: { width: '100%' } }) ]),
     el('div.row.between', {}, [
-      el('span.muted', { text: `Question ${state.qIndex + 1} of ${round.questions.length}` }),
+      el('span.muted', { text: `Question ${state.qIndex + 1} of ${itemCount(state)}` }),
       el('span.timer', { id: 'timertext', text: '' }),
     ]),
     media,
@@ -133,7 +133,7 @@ export function renderQuestion(ctx) {
     el('p.center.muted', { text: revealing ? '' : (myAnswer ? 'Locked in ✓  Waiting…' : 'Tap your answer') }),
     el('p.center.muted', { text: `${numAnswered}/${numPlayers} answered` }),
     hostControls(ctx, revealing
-      ? { label: state.qIndex >= round.questions.length - 1 ? 'End round' : 'Next question', onClick: act.next }
+      ? { label: state.qIndex >= itemCount(state) - 1 ? 'End round' : 'Next question', onClick: act.next }
       : { label: 'Reveal answer', onClick: act.reveal }),
   );
 
@@ -177,7 +177,7 @@ export function renderRoundEnd(ctx) {
 export function renderWhatIf(ctx) {
   const { state, act } = ctx;
   const round = currentRound(state);
-  const item = round.whatIfs[state.whatIfIndex];
+  const item = currentWhatIf(state);
   const key = `w${state.whatIfIndex}`;
   const votes = state.whatIfVotes?.[key] || {};
   const myVote = votes[ctx.uid];
@@ -187,7 +187,7 @@ export function renderWhatIf(ctx) {
   mount(
     roundHeader(state, round),
     el('div.card.stack', {}, [
-      el('div.pin', { text: `What-If ${state.whatIfIndex + 1} of ${round.whatIfs.length}` }),
+      el('div.pin', { text: `What-If ${state.whatIfIndex + 1} of ${itemCount(state)}` }),
       el('h2', { text: item.scenario }),
       el('p.muted', { text: item.prompt }),
     ]),
@@ -199,7 +199,7 @@ export function renderWhatIf(ctx) {
       }, [ el('span.k', { text: LETTERS[i] }), opt, myVote != null ? el('span', { style: { marginLeft: 'auto', color: 'var(--gold-2)', fontWeight: '800' }, text: ` ${pct}%` }) : null ]);
     })),
     el('p.center.muted', { text: 'No points here — just argue it out. 🍽️' }),
-    hostControls(ctx, { label: state.whatIfIndex >= round.whatIfs.length - 1 ? 'Build the dream team →' : 'Next what-if', onClick: act.next }),
+    hostControls(ctx, { label: state.whatIfIndex >= itemCount(state) - 1 ? 'Build the dream team →' : 'Next what-if', onClick: act.next }),
   );
 }
 
